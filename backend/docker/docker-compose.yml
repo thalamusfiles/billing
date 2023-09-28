@@ -1,0 +1,58 @@
+version: "3.2"
+services:
+  billing_db:
+    container_name: billing_postgres
+    image: postgres:15-alpine
+    shm_size: 1g
+    environment:
+      - POSTGRES_DB=${DATABASE_NAME}
+      - POSTGRES_USER=${DATABASE_USER}
+      - POSTGRES_PASSWORD=${DATABASE_PASS}
+      - TZ=GMT
+    volumes:
+      - type: bind
+        source: "../tmp/${DATABASE_LOCAL_FOLDER}"
+        target: /var/lib/postgresql/data
+        volume:
+          nocopy: true
+    networks:
+      - billing_backend-net
+    ports:
+      - ${DATABASE_PORT}:5001
+    command: -p 5001
+
+  billing_backend:
+    container_name: billing_backend_server
+    build:
+      context: ../
+      dockerfile: docker/Dockerfile
+    environment:
+      NODE_ENV: ${NODE_ENV}
+      SYSTEM_PORT: ${SYSTEM_PORT}
+      DATABASE_HOST: ${DATABASE_HOST}
+      DATABASE_NAME: ${DATABASE_NAME}
+      DATABASE_USER: ${DATABASE_USER}
+      DATABASE_PASS: ${DATABASE_PASS}
+      EASYLOGGER_URLS: ${EASYLOGGER_URLS}
+      EASYLOGGER_INDEX: ${EASYLOGGER_INDEX}
+      EASYLOGGER_PRODUCT_INDEX: ${EASYLOGGER_PRODUCT_INDEX}
+    volumes:
+      - "../:/var/www/app"
+      - "/var/www/app/node_modules"
+    networks:
+      - docker_iam_backend-net
+      - docker_easylog_backend-net
+      - billing_backend-net
+    depends_on:
+      - billing_db
+    ports:
+      - ${SYSTEM_PORT}:${SYSTEM_PORT}
+    command: ${COMMAND_START}
+
+networks:
+  docker_iam_backend-net:
+    external: true
+  docker_easylog_backend-net:
+    external: true
+  billing_backend-net:
+    driver: bridge
