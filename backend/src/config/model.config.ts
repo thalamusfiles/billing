@@ -5,7 +5,7 @@ import { ProductCost } from '../model/ProductCost';
 
 const defaultModelConfig = {
   host: 'localhost',
-  port: 5003,
+  port: 5001,
   dbName: 'billing',
   user: 'billing',
   password: 'billing',
