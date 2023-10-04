@@ -1,0 +1,125 @@
+{
+  "initials.isNotEmpty": "Iniciais obrigatória",
+  "name.isNotEmpty": "Nome obrigatório",
+  "description.isNotEmpty": "Descrição obrigatória",
+  "username.isNotEmpty": "Usuário obrigatório",
+  "password.isNotEmpty": "Senha obrigatória",
+  "redirect_uri.isUrl": "Redirect uri required",
+  
+  "server": {
+    "application_not_public": "Usuário sem permissão para acessar a aplicação",
+    "user_not_found": "Usuário não encontrado",
+    "password_invalid": "Senha incorreta"
+  },
+
+  "languages": {
+    "pt-BR": "Português (Brasil)",
+    "en-US": "Inglês"
+  },
+
+  "footer": {},
+
+  "login": {
+    "title":"Thalamus Billing",
+    "subtitle":"Central de custos e faturamento.",
+    "cardindo":"Você precisa estar logado para acessar o painel",
+    "action": {
+      "login": "Entrar"
+    }
+  },
+  "account" : {
+    "home": {
+      "title": "Bem vindo {{name}}!",
+      "subtitle": "Sua conta esta pronta para ser utilizada nas aplicações Thalamus.",
+      "accessmsg": "Sua identidade de acesso é {{username}}."
+    }
+  },
+  "application": {
+    "list": {
+      "title": "Aplicações",
+      "about.description": "Listagem de aplicações"
+    },
+    "edit": {
+      "about.title": "Aplicação",
+      "about.description": "Informe os campos abaixo para criar/modificar a aplicação.",
+      "about.initials_append": "Após salvar este campo não poderá ser alterado.",
+      "managers.title": "Gerentes",
+      "managers.description": "Usuários com permissão para alterar os escopos/perfis e permissões deste aplicação.",
+      "manager": "Gerente",
+      "username": "Login"
+    }
+  },
+  "menu": {
+    "messages": "Mensagens",
+    "both":"Ambos",
+    "about": "Sobre",
+    "all": "Todos",
+    "lists": "Listas",
+    "list": "Lista",
+    "filters": "Filtros",
+    "sort": "Ordem",
+    "columns": "Colunas",
+    "brand": "Billing",
+    "home": "Início",
+    "help": "Ajuda",
+    "search": "Procurar por...",
+    "actions": "Ações",
+    "quickaccess": "Acesso Rápido",
+    "language": "Idioma",
+    "english": "Inglês",
+    "portuguese": "Português",
+    "logout": "Sair",
+    "customization":"Customizações",
+    "mgt": {
+      "register": "Cadastros",
+      "activity": "Atividade",
+      "systems": "Sistemas",
+      "applications": "Aplicações",
+      "user": "Usuários",
+      "user_description": "Listagem e visualização dos usuários. Perfís e permissões associados aos usuários.",
+      "roles": "Escopos / Perfis / Papeis / Cargos",
+      "roles_description": "Listagem e edição de escopos e perfis do sistema. Vínculos com as permissões e lista de usuários associados ao perfil.",
+      "permissions": "Permissões / Recursos",
+      "permissions_description": "Listagem e edição de permissões de acesso aos recursos das aplicações.",
+      "my_devices_connected": "Meus dispositivos conectados",
+      "my_logins": "Meus logins realizados"
+    }
+  },
+  "info": {
+    "uninformed": "Não informado(a)",
+    "notloaded": "Não carregado",
+    "thereXmorerecords": "Existe mais {{number}} registros",
+    "loadingsettings": "Carregando configurações"
+  },
+  "actions": {
+    "showall": "Exibir tudo",
+    "new": "Novo",
+    "add": "Adicionar",
+    "back": "Voltar",
+    "save": "Salvar",
+    "clear": "Limpar",
+    "close": "Fechar",
+    "change": "Trocar",
+    "reset": "Resetar",
+    "open": "Abrir",
+    "cancel": "Cancelar",
+    "select": "Selectionar",
+    "search": "Buscar",
+    "applyfilter":"Aplicar filters",
+    "findfileupload": "Procurar arquivo",
+    "import": "Importar",
+    "addcolumn": "Adicionar colunas",
+    "applycolumns": "Exibir estas colunas"
+  },
+  "generic": {
+    "list": {
+      "save-list.title": "Salvar Listagem",
+      "save-list.desc": "Revise os campos e nomeia a nova aba. Clique em salvar para registrar as definições da listagem.",
+      "name": "Table name",
+      "empty": "Listagem vazia"
+    },
+    "tooltip": {
+      "filter-remove": "Clique para remover o filtro"
+    }
+  }
+}
