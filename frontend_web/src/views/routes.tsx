@@ -1,24 +1,22 @@
 import React from 'react';
 import { Navigate, Route } from 'react-router-dom';
 import { PrivateRoutes } from '../commons/route';
-import iamConfig from '../config/iam.config';
+import TokenLoad from './public/token-load';
 
 //Lazy Loading
 const LoginPage = React.lazy(() => import('./public/login'));
 const Account = React.lazy(() => import('./account'));
 const Mgt = React.lazy(() => import('./mgt'));
 
-const accountLoginRoute = `/public/app/${iamConfig.MAIN_APP_IAM_ID}/login?scope=${iamConfig.DEFAULT_SCOPE}&redirect_uri=${window.location.origin}/account`;
-const mgtLoginRoute = `/public/app/${iamConfig.MAIN_APP_IAM_MGT_ID}/login?scope=${iamConfig.DEFAULT_SCOPE}&redirect_uri=${window.location.origin}/mgt/home/modal/context/change_application`;
-
 const routes = (
   <>
-    <Route path="/public/app/:app/login" element={<LoginPage />} index />
+    <Route path="/public/app/login" element={<LoginPage />} index />
+    <Route path="/public/app/tokenload" element={<TokenLoad />} index />
 
-    <Route path="/account/*" element={<PrivateRoutes element={<Account />} redirect={accountLoginRoute} />} />
-    <Route path="/mgt/*" element={<PrivateRoutes element={<Mgt />} redirect={mgtLoginRoute} />} />
+    <Route path="/account/*" element={<PrivateRoutes element={<Account />} redirect={'public/app/login'} />} />
+    <Route path="/mgt/*" element={<PrivateRoutes element={<Mgt />} redirect={'public/app/login'} />} />
 
-    <Route path="/" element={<Navigate to={accountLoginRoute} replace />} />
+    <Route path="/" element={<Navigate to={'public/app/login'} replace />} />
   </>
 );
 

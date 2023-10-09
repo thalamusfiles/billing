@@ -1,7 +1,7 @@
 import Form from 'react-bootstrap/Form';
 import { PickersNames } from '../../commons/attribute-type';
-import { defaultPageSize } from '../../commons/consts';
-import { SortOrder } from '../../commons/enums/sort-order.enum';
+//import { defaultPageSize } from '../../commons/consts';
+//import { SortOrder } from '../../commons/enums/sort-order.enum';
 import { WmsFormComponent, WmsFormPlugin } from '../../commons/plugin.component';
 import { historyPush } from '../../commons/route';
 import { WmsPicker } from '../../components/Form/wms-picker';

@@ -4,22 +4,21 @@ import { createContext, useContext } from 'react';
 import { localStorageDef } from '../commons/consts';
 import { historyPush } from '../commons/route';
 import Storage from '../commons/storage';
+import { AuthDataSource } from '../datasources/auth';
 
-type AccessUserInfo = { iat: number; uuid: string; /*sub*/ name: string; applicationLogged: string };
+type AccessUserInfo = { iat: number; sub: string; name: string; aud: string };
 
 export class Ctx {
   constructor() {
     //Modifica classe pra ser observável
     makeObservable(this);
 
-    this.loadUser();
-    this.loadApplication();
+    this.loadUser(true);
   }
 
   @observable user = {} as AccessUserInfo;
   @observable token = null as string | null;
   @observable expiresIn = null as number | null;
-  @observable application = {} as { uuid: string; name?: string };
 
   changeLanguage(lng?: string): Promise<Function> {
     return i18next.changeLanguage(lng);
@@ -35,7 +34,7 @@ export class Ctx {
   logout() {
     this.saveUser({}, null, null);
 
-    historyPush('/');
+    historyPush('logout', { absolute: true });
   }
 
   //Retorna se usuário esta logado
@@ -44,10 +43,25 @@ export class Ctx {
     return !!this.token;
   }
 
-  @action loadUser() {
+  @action loadUser(reload = false) {
     this.user = Storage.getItem(localStorageDef.userContextKey, {});
     this.token = Storage.getItem(localStorageDef.tokenKey);
     this.expiresIn = Storage.getItem(localStorageDef.tokenKey);
+
+    if (!this.token && reload) {
+      //Esse setTimeout é um POG
+      setTimeout(() => {
+        new AuthDataSource()
+          .getToken()
+          .then((resp) => {
+            this.token = resp.data.idToken;
+            this.user = resp.data.userInfo;
+          })
+          .catch((error) => {
+            console.error(error);
+          });
+      }, 500);
+    }
   }
 
   @action saveUser(user: any, token: string | null, expiresIn: number | null) {
@@ -58,16 +72,6 @@ export class Ctx {
     this.user = user;
     this.token = token;
     this.expiresIn = expiresIn;
-  }
-
-  @action loadApplication() {
-    this.application = Storage.getItem(localStorageDef.applicationContextKey, {});
-  }
-
-  @action saveApplication(application: { uuid: string; name?: string }) {
-    Storage.setItem(localStorageDef.applicationContextKey, application);
-
-    this.application = application;
   }
 }
 

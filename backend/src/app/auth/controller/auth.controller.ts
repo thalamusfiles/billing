@@ -45,7 +45,7 @@ export class AuthController {
       }
     }
 
-    return response.redirect(billingConfig.PRODCTION_MODE ? '/' : `${billingConfig.DEV_URL}/`);
+    return response.redirect(billingConfig.PRODCTION_MODE ? '/' : `${billingConfig.DEV_URL}/public/app/tokenload`);
   }
 
   /**
