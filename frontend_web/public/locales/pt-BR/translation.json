@@ -13,6 +13,7 @@
   },
 
   "languages": {
+    "BRL_": "R$ {{value}}",
     "pt-BR": "Português (Brasil)",
     "en-US": "Inglês"
   },
@@ -29,9 +30,11 @@
   },
   "account" : {
     "home": {
-      "title": "Bem vindo {{name}}!",
-      "subtitle": "Sua conta esta pronta para ser utilizada nas aplicações Thalamus.",
-      "accessmsg": "Sua identidade de acesso é {{username}}."
+      "spent_month": "Custo atual.",
+      "spend_forecast": "Previsão de custo para o mês.",
+      "spent_last_month": "Valor última fatura.",
+      "billing.title": "Fatura",
+      "billing.subtitle": "Resumo da faturo por tipo de serviço utilizado."
     }
   },
   "application": {

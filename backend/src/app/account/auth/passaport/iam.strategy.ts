@@ -1,8 +1,8 @@
 import { PassportStrategy } from '@nestjs/passport';
 import { Strategy, Client, Issuer, TokenSet } from 'openid-client';
 import { Injectable, UnauthorizedException } from '@nestjs/common';
-import authConfig from '../../../config/auth.config';
-import cookieConfig from '../../../config/cookie.config';
+import authConfig from '../../../../config/auth.config';
+import cookieConfig from '../../../../config/cookie.config';
 import { IAMInfo } from './iam.info';
 
 export const buildIamOpenIdClient = async (): Promise<Client | null> => {
@@ -25,7 +25,7 @@ export class IamStrategy extends PassportStrategy(Strategy, 'iam') {
     super({
       client: client,
       params: {
-        redirect_uri: authConfig.OAUTH_CALLBACK,
+        redirect_uri: authConfig.CLIENT_CALLBACK,
         client_id: authConfig.CLIENT_ID,
         client_secret: authConfig.CLIENT_SECRET,
         response_type: 'code',

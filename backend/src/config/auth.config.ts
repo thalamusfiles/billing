@@ -16,11 +16,10 @@ const authConfig = {
   OAUTH_AUTHORIZE: '/oauth2/authorize',
   // URL de autenticação do sistema.
   OAUTH_TOKEN: '/oauth2/token',
-  // Oauth callback
-  OAUTH_CALLBACK: billingConfig.PRODCTION_MODE ? '/auth/iam/callback' : `http://localhost:${billingConfig.PORT}/auth/iam/callback`,
   // Oauth scope
   OAUTH_SCOPE: 'iam_all',
-  // Identificação do Cliente
+  // Oauth callback
+  CLIENT_CALLBACK: billingConfig.PRODCTION_MODE ? '/auth/iam/callback' : `http://localhost:${billingConfig.PORT}/auth/iam/callback`,
   CLIENT_ID: 'cea146ef-07a3-4df6-9b3d-e4b8c9629114',
   CLIENT_SECRET: process.env.OAUTH_URL || defaultAuthConfig.CLIENT_SECRET,
 };

@@ -2,7 +2,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import Card from 'react-bootstrap/Card';
 
 type TCardTileProps = {
-  title: string;
+  title: string | React.ReactElement;
   subtitle: string;
   variant?: string;
   faicon?: any;

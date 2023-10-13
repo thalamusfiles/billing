@@ -11,6 +11,9 @@ export const ColorsDef = {
   applicationsVariant: 'danger',
   // Atividades
   historyVariant: 'light',
+  // Account Home
+  spentVariant: 'light',
+  forecastVariant: 'danger',
 };
 
 export const IconsDef = {

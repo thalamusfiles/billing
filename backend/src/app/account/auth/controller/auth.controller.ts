@@ -1,7 +1,7 @@
 import { Controller, Get, Logger, Request, Res, UseGuards } from '@nestjs/common';
-import authConfig from '../../../config/auth.config';
-import cookieConfig from '../../../config/cookie.config';
-import billingConfig from '../../../config/billing.config';
+import authConfig from '../../../../config/auth.config';
+import cookieConfig from '../../../../config/cookie.config';
+import billingConfig from '../../../../config/billing.config';
 import { IamGuard } from '../passaport/iam.guard';
 
 @Controller('auth')
