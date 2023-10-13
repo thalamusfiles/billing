@@ -6,8 +6,9 @@ import Row from 'react-bootstrap/Row';
 import { useI18N } from '../../../commons/i18';
 import { AccountHomeCtrl, AccountHomeProvider, useAccountHomeStore } from './ctrl';
 import TCardTile from '../../../components/Card/card-tile';
-import { ColorsDef, IconsDef } from '../../../commons/consts';
+import { ColorsDef } from '../../../commons/consts';
 import { Table } from 'react-bootstrap';
+import { SpentHistory } from './spent_history';
 
 const HomeAccountPage: React.FC = () => {
   const ctrl = new AccountHomeCtrl();
@@ -27,6 +28,9 @@ const HomeAccountPageProvided: React.FC = () => {
   return (
     <Container>
       <HomeSummary />
+      <br />
+
+      <SpentHistory />
       <br />
 
       <BillingByService />
