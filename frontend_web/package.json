@@ -1,10 +1,10 @@
 {
-  "name": "thalamus_iam",
-  "version": "0.1.1",
+  "name": "thalamus_billing",
+  "version": "0.1.0",
   "author": "Thalamus",
   "since": "2022",
   "url": "https://thalamus.digital/",
-  "docUrl": "https://docs.iam.thalamus.digital/",
+  "docUrl": "https://docs.billing.thalamus.digital/",
   "private": false,
   "engines": {
     "node": ">=18.0"
