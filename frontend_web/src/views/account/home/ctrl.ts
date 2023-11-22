@@ -1,5 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
+import { UserUsageRelsDataSource } from '../../../datasources/rels';
 
 export class AccountHomeCtrl {
   constructor() {
@@ -9,6 +10,9 @@ export class AccountHomeCtrl {
 
   // Informações do usuário logado
   @observable me = null as any;
+  @observable servicesUsedInTheMonth = [] as any[];
+  @observable servicesUsedInTheMonthTotal?: number;
+
   // Indica que já foi disparado o init
   started = false;
 
@@ -18,6 +22,7 @@ export class AccountHomeCtrl {
       this.started = true;
 
       this.loadUsernInfo();
+      this.loadServicesUsedInTheMonth();
     }
   };
 
@@ -28,6 +33,16 @@ export class AccountHomeCtrl {
       this.me = responseData;
     });*/
   };
+
+  @action
+  loadServicesUsedInTheMonth() {
+    new UserUsageRelsDataSource().getServicesUsedInTheMonth().then((response) => {
+      const responseData = response.data;
+
+      this.servicesUsedInTheMonth = responseData;
+      this.servicesUsedInTheMonthTotal = responseData.reduce((prev, curr) => prev + curr.total_cost, 0);
+    });
+  }
 }
 
 export const AccountHomeContext = createContext({} as AccountHomeCtrl);

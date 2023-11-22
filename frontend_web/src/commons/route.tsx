@@ -116,28 +116,3 @@ export function historyOnPop(listener: any) {
 export const PrivateRoutes = ({ redirect, element }: { redirect: string; element: JSX.Element }): JSX.Element => {
   return Storage.getItem(localStorageDef.tokenKey) ? element : <Navigate to={redirect} />;
 };
-
-/**
- * Escuta as alterações de links realizadas no sistema.
- */
-// TODO: Ajustar
-/*
-history.listen((location, action) => {
-  //Verifica se tem uma hash/acontora de página e move a página até o elemento.
-  if (location.hash) {
-    const id = location.hash.replace('#', '');
-    const element = document.getElementById(id);
-    if (element) element.scrollIntoView();
-  }
-
-  //Dispara as ações ligadas ao history back;
-  if (action === 'POP') {
-    for (const callback of hPopsCallbacks) {
-      if (typeof callback === 'function') {
-        callback(location, action);
-      }
-    }
-  }
-  hPopsCallbacks.splice(0, hPopsCallbacks.length);
-});
-*/

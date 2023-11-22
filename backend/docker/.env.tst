@@ -14,3 +14,5 @@ COMMAND_START="yarn test:watch"
 EASYLOGGER_URLS=""
 EASYLOGGER_INDEX=""
 EASYLOGGER_PRODUCT_INDEX=""
+
+OAUTH_URL="http://iam_backend:3000/auth"

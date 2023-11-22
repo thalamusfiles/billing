@@ -36,6 +36,7 @@ services:
       EASYLOGGER_URLS: ${EASYLOGGER_URLS}
       EASYLOGGER_INDEX: ${EASYLOGGER_INDEX}
       EASYLOGGER_PRODUCT_INDEX: ${EASYLOGGER_PRODUCT_INDEX}
+      OAUTH_URL: ${OAUTH_URL}
     volumes:
       - "../:/var/www/app"
       - "/var/www/app/node_modules"

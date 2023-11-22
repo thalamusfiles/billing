@@ -8,17 +8,21 @@ class EndpointsConfigure {
   eAuthIam = '/iam';
   eAuthToken = '/token';
   eAuthLogout = '/logout';
+  // Rels
+  eRels = null as string | null;
+  eRelsUserServicesUsedInTheMonth = '/user/servicesUsedInTheMonth'
 
   configureEndpoint = (baseUrl: string = 'localhost', basePort: string = '3000') => {
     const baseEndpoint = basePort ? `${baseUrl}:${basePort}` : baseUrl;
 
-    // Auth
     const eAuth = `${baseEndpoint}/auth`;
+    const eRels = `${baseEndpoint}/rels`;
 
     this.url = baseUrl;
     this.port = basePort;
     this.base = baseEndpoint;
     this.eAuth = eAuth;
+    this.eRels = eRels;
   };
 }
 
