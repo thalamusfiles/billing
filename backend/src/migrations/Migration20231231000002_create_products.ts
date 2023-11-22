@@ -61,7 +61,7 @@ export class Migration20231231000002_create_products extends Migration {
       select CURRENT_DATE, CURRENT_DATE, "product".uuid, 0
       from "product"
       left join "product_cost" pc on pc.product_uuid = "product".uuid
-      where "product" is null;
+      where pc.product_uuid is null;
     `);
   }
 

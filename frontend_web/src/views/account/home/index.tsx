@@ -4,7 +4,7 @@ import Col from 'react-bootstrap/Col';
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import { useI18N } from '../../../commons/i18';
-import { AccountHomeCtrl, AccountHomeProvider } from './ctrl';
+import { AccountHomeCtrl, AccountHomeProvider, useAccountHomeStore } from './ctrl';
 import TCardTile from '../../../components/Card/card-tile';
 import { ColorsDef } from '../../../commons/consts';
 import { SpentHistory } from './spent_history';
@@ -40,6 +40,7 @@ const HomeAccountPageProvided: React.FC = () => {
 
 const HomeSummary: React.FC = observer(() => {
   const __ = useI18N();
+  const ctrl = useAccountHomeStore();
 
   return (
     <Row>
@@ -53,7 +54,7 @@ const HomeSummary: React.FC = observer(() => {
       <Col md={3}>
         <TCardTile
           variant={ColorsDef.spentVariant}
-          title={<strong>{__('languages.BRL_', { value: 123.12 })}</strong>}
+          title={<strong>{__('languages.BRL_', { value: ctrl.servicesUsedInTheMonthTotal })}</strong>}
           subtitle={__('account.home.spent_month')}
         />
       </Col>

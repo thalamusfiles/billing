@@ -7,8 +7,8 @@ export class ProductCost extends BillingBaseEntity {
   @ManyToOne(() => Product, { nullable: false })
   product?: Product;
 
-  @Property({ type: 'uuid', nullable: true })
-  user_uuid: string;
+  /*@Property({ type: 'uuid', nullable: true })
+  user_uuid: string;*/
 
   @Property({ type: 'numeric(10, 4)', nullable: false })
   cost!: number;

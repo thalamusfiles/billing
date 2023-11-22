@@ -3,7 +3,14 @@ import { Migration } from '@mikro-orm/migrations';
 export class Migration20230928000002_product_cost extends Migration {
   async up(): Promise<void> {
     this.addSql(
-      'create table "product_cost" ("uuid" uuid not null default uuid_generate_v4(), "created_at" timestamptz(0) not null, "updated_at" timestamptz(0) not null, "product_uuid" uuid not null, "name" varchar(512) not null, "cost" numeric(10,0) not null, constraint "product_cost_pkey" primary key ("uuid"));',
+      `create table "product_cost" (
+        "uuid" uuid not null default uuid_generate_v4(), 
+        "created_at" timestamptz(0) not null, 
+        "updated_at" timestamptz(0) not null, 
+        "product_uuid" uuid not null, 
+        "cost" numeric(10,0) not null, 
+        
+        constraint "product_cost_pkey" primary key ("uuid"));`,
     );
 
     this.addSql(
