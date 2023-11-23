@@ -3,12 +3,16 @@ import { ApiOperation } from '@nestjs/swagger';
 import RegisterApiDataSource from 'src/app/datasources/easylog.datasource';
 import { RequestInfo } from 'src/commons/request-info';
 import { ProductService } from '../service/product.service';
+import { ProductCostService } from '../service/product-cost.service';
 
 @Controller('rels/user')
 export class UserUsageRelsController {
   private readonly logger = new Logger(UserUsageRelsController.name);
 
-  constructor(private readonly productService: ProductService) {
+  constructor(
+    private readonly productService: ProductService,
+    private readonly productCostService: ProductCostService,
+  ) {
     this.logger.log('starting');
   }
 
@@ -42,7 +46,7 @@ export class UserUsageRelsController {
     const productNamesUsed = Object.keys(totalsObj);
     const products = await this.productService.findByNamesWithCost(productNamesUsed);
 
-    return products.map((product) => {
+    const productCosts = products.map((product) => {
       const amountUse = totalsObj[product.name];
       const productCost = product.costs[0]; // TODO coletar o último custo
 
@@ -51,8 +55,13 @@ export class UserUsageRelsController {
         product_description: product.description,
         product_cost: productCost.cost,
         ammout_use: amountUse,
-        total_cost: productCost.cost * amountUse,
+        total_cost: this.productCostService.roundFinalCostValue(productCost.cost * amountUse),
       };
     });
+
+    const costTotal = productCosts.reduce((prev, curr) => prev + curr.total_cost, 0);
+    const costForecast = this.productCostService.roundFinalCostValue(this.productCostService.calculateCostForecast(costTotal));
+
+    return { productCosts, costTotal, costForecast };
   }
 }

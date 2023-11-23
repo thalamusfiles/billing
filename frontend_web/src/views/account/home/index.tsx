@@ -47,14 +47,14 @@ const HomeSummary: React.FC = observer(() => {
       <Col md={3}>
         <TCardTile
           variant={ColorsDef.forecastVariant}
-          title={<strong>{__('languages.BRL_', { value: 956.12 })}</strong>}
+          title={<strong>{__('languages.BRL_', { value: ctrl.costForecast })}</strong>}
           subtitle={__('account.home.spend_forecast')}
         />
       </Col>
       <Col md={3}>
         <TCardTile
           variant={ColorsDef.spentVariant}
-          title={<strong>{__('languages.BRL_', { value: ctrl.servicesUsedInTheMonthTotal })}</strong>}
+          title={<strong>{__('languages.BRL_', { value: ctrl.costTotal })}</strong>}
           subtitle={__('account.home.spent_month')}
         />
       </Col>

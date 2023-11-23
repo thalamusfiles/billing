@@ -11,7 +11,8 @@ export class AccountHomeCtrl {
   // Informações do usuário logado
   @observable me = null as any;
   @observable servicesUsedInTheMonth = [] as any[];
-  @observable servicesUsedInTheMonthTotal?: number;
+  @observable costTotal?: number;
+  @observable costForecast?: number;
 
   // Indica que já foi disparado o init
   started = false;
@@ -39,8 +40,9 @@ export class AccountHomeCtrl {
     new UserUsageRelsDataSource().getServicesUsedInTheMonth().then((response) => {
       const responseData = response.data;
 
-      this.servicesUsedInTheMonth = responseData;
-      this.servicesUsedInTheMonthTotal = responseData.reduce((prev, curr) => prev + curr.total_cost, 0);
+      this.servicesUsedInTheMonth = responseData.productCosts;
+      this.costTotal = responseData.costTotal;
+      this.costForecast = responseData.costForecast;
     });
   }
 }

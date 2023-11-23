@@ -4,10 +4,11 @@ import { ProductService } from './service/product.service';
 import { Product } from 'src/model/Product';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { ProductCost } from 'src/model/ProductCost';
+import { ProductCostService } from './service/product-cost.service';
 
 @Module({
   imports: [MikroOrmModule.forFeature([Product, ProductCost])],
-  providers: [ProductService],
+  providers: [ProductService, ProductCostService],
   controllers: [UserUsageRelsController],
 })
 export class RelsModule implements NestModule {

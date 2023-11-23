@@ -40,7 +40,7 @@ export const BillingByService: React.FC = observer(() => {
             <td></td>
             <td></td>
             <td>
-              <strong>{ctrl.servicesUsedInTheMonthTotal}</strong>
+              <strong>{ctrl.costTotal}</strong>
             </td>
           </tr>
         </tfoot>
