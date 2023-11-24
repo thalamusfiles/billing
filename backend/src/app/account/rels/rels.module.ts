@@ -5,11 +5,25 @@ import { Product } from 'src/model/Product';
 import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { ProductCost } from 'src/model/ProductCost';
 import { ProductCostService } from './service/product-cost.service';
+import { InvoiceService } from './service/invoice.service.';
+import { UserInvoiceRelsController } from './controller/user-invoice-rels.controller';
+import { Invoice } from 'src/model/Invoice';
+import { User } from 'src/model/User';
+import { InvoiceProductCost } from 'src/model/InvoiceProductCost';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([Product, ProductCost])],
-  providers: [ProductService, ProductCostService],
-  controllers: [UserUsageRelsController],
+  imports: [MikroOrmModule.forFeature([Product, ProductCost, Invoice])],
+  providers: [
+    //
+    ProductService,
+    ProductCostService,
+    InvoiceService,
+  ],
+  controllers: [
+    //
+    UserUsageRelsController,
+    UserInvoiceRelsController,
+  ],
 })
 export class RelsModule implements NestModule {
   private readonly logger = new Logger(RelsModule.name);

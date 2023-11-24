@@ -7,7 +7,7 @@ import { useI18N } from '../../../commons/i18';
 import { AccountHomeCtrl, AccountHomeProvider, useAccountHomeStore } from './ctrl';
 import TCardTile from '../../../components/Card/card-tile';
 import { ColorsDef } from '../../../commons/consts';
-import { SpentHistory } from './spent_history';
+import { SpentHistory } from './SpentHistory';
 import { BillingByService } from './BillingByService';
 
 const HomeAccountPage: React.FC = () => {

@@ -1,6 +1,6 @@
 import { action, makeObservable, observable } from 'mobx';
 import { createContext, useContext } from 'react';
-import { UserUsageRelsDataSource } from '../../../datasources/rels';
+import { UserInvoiceRelsDataSource, UserUsageRelsDataSource } from '../../../datasources/rels';
 
 export class AccountHomeCtrl {
   constructor() {
@@ -13,6 +13,7 @@ export class AccountHomeCtrl {
   @observable servicesUsedInTheMonth = [] as any[];
   @observable costTotal?: number;
   @observable costForecast?: number;
+  @observable invoicesByServiceByMonth = [] as any[];
 
   // Indica que já foi disparado o init
   started = false;
@@ -24,6 +25,7 @@ export class AccountHomeCtrl {
 
       this.loadUsernInfo();
       this.loadServicesUsedInTheMonth();
+      this.loadInvoicesByServiceByMonth();
     }
   };
 
@@ -43,6 +45,15 @@ export class AccountHomeCtrl {
       this.servicesUsedInTheMonth = responseData.productCosts;
       this.costTotal = responseData.costTotal;
       this.costForecast = responseData.costForecast;
+    });
+  }
+
+  @action
+  loadInvoicesByServiceByMonth() {
+    new UserInvoiceRelsDataSource().getInvoicesByServiceByMonth().then((response) => {
+      const responseData = response.data;
+
+      this.invoicesByServiceByMonth = responseData.byService;
     });
   }
 }

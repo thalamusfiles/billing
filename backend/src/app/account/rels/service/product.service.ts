@@ -20,7 +20,7 @@ export class ProductService {
    * @returns
    */
   async findByNamesWithCost(productNames: string[]): Promise<Product[]> {
-    this.logger.verbose('findByNames');
+    this.logger.verbose('findByNamesWithCost');
 
     const options: FindOptions<Product> | any = {
       orderBy: { name: QueryOrder.ASC },

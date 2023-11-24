@@ -11,6 +11,7 @@ class EndpointsConfigure {
   // Rels
   eRels = null as string | null;
   eRelsUserServicesUsedInTheMonth = '/user/servicesUsedInTheMonth'
+  eRelsUserInvoicesByServiceByMonth = '/user/invoicesByServiceByMonth'
 
   configureEndpoint = (baseUrl: string = 'localhost', basePort: string = '3000') => {
     const baseEndpoint = basePort ? `${baseUrl}:${basePort}` : baseUrl;

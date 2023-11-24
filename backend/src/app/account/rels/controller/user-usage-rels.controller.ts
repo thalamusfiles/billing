@@ -4,6 +4,7 @@ import RegisterApiDataSource from 'src/app/datasources/easylog.datasource';
 import { RequestInfo } from 'src/commons/request-info';
 import { ProductService } from '../service/product.service';
 import { ProductCostService } from '../service/product-cost.service';
+import { ServicesUsedInTheMonthDto } from './dtos/user-usage-rels.dto';
 
 @Controller('rels/user')
 export class UserUsageRelsController {
@@ -24,7 +25,7 @@ export class UserUsageRelsController {
   @ApiOperation({ tags: ['Rels'], summary: 'Retorna a quantidade de serviços utilizados no mes atual' })
   @Get('servicesUsedInTheMonth')
   //@UseGuards(IamGuard)
-  async servicesUsedInTheMonth(@Request() request?: RequestInfo): Promise<any> {
+  async servicesUsedInTheMonth(@Request() request?: RequestInfo): Promise<ServicesUsedInTheMonthDto> {
     this.logger.log('servicesUsedInTheMonth');
 
     // Coleta

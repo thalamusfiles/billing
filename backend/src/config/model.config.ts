@@ -2,6 +2,9 @@ import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
 import billingConfig from './billing.config';
 import { Product } from '../model/Product';
 import { ProductCost } from '../model/ProductCost';
+import { User } from 'src/model/User';
+import { Invoice } from 'src/model/Invoice';
+import { InvoiceProductCost } from 'src/model/InvoiceProductCost';
 
 const defaultModelConfig = {
   host: 'localhost',
@@ -19,9 +22,12 @@ const modelConfig: MikroOrmModuleSyncOptions = {
     pathTs: 'src/migrations',
   },
   entities: [
+    User,
     // Billing
     Product,
     ProductCost,
+    Invoice,
+    InvoiceProductCost,
   ],
   entitiesTs: ['./src/model'],
   type: 'postgresql',
