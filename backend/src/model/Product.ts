@@ -4,9 +4,6 @@ import { ProductCost } from './ProductCost';
 
 @Entity({ schema: 'public', readonly: true })
 export class Product extends BillingBaseEntity {
-  @OneToMany(() => ProductCost, (cost) => cost.product)
-  costs = new Collection<ProductCost>(this);
-
   @Property({ nullable: false, length: 512 })
   name!: string;
 
@@ -15,4 +12,7 @@ export class Product extends BillingBaseEntity {
 
   @Property({ nullable: true })
   deletedAt?: Date;
+
+  @OneToMany(() => ProductCost, (cost) => cost.product)
+  costs = new Collection<ProductCost>(this);
 }

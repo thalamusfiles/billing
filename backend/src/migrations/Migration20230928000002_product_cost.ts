@@ -8,9 +8,14 @@ export class Migration20230928000002_product_cost extends Migration {
         "created_at" timestamptz(0) not null, 
         "updated_at" timestamptz(0) not null, 
         "product_uuid" uuid not null, 
+        "created_by_uuid" uuid null
         "cost" numeric(10,0) not null, 
         
         constraint "product_cost_pkey" primary key ("uuid"));`,
+    );
+
+    this.addSql(
+      'alter table "product_cost" add constraint "product_cost_created_by_uuid_foreign" foreign key ("created_by_uuid") references "product" ("uuid") on update cascade on delete set null;',
     );
 
     this.addSql(
