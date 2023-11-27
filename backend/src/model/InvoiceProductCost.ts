@@ -4,7 +4,7 @@ import { Product } from './Product';
 import { ProductCost } from './ProductCost';
 import { Invoice } from './Invoice';
 
-@Entity({ schema: 'public', readonly: true })
+@Entity({ schema: 'public' })
 export class InvoiceProductCost extends BillingBaseEntity {
   @ManyToOne(() => Invoice, { nullable: false })
   invoice?: Invoice;

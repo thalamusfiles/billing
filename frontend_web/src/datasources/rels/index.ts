@@ -2,7 +2,7 @@ import { AxiosResponse } from 'axios';
 import Apis from '../apis';
 import Endpoints from '../endpoints';
 
-type UserUsageRelsServicesUsedInTheMonthDto = {
+type UserUsageRelsProductsUsedInTheMonthDto = {
   productCosts: Array<{
     product_name: string;
     product_description: string;
@@ -16,26 +16,37 @@ type UserUsageRelsServicesUsedInTheMonthDto = {
 
 interface UserUsageRelsDataSourceI {
   // Retorna a quantidade de serviços utilizados no mes atual.
-  getServicesUsedInTheMonth(): Promise<AxiosResponse<UserUsageRelsServicesUsedInTheMonthDto>>;
+  getProductsUsedInTheMonth(): Promise<AxiosResponse<UserUsageRelsProductsUsedInTheMonthDto>>;
 }
 
-type UserInvoiceRelsInvoicesByServiceByMonthDto = {
-  byService: Array<{}>;
+type UserInvoiceRelsInvoicesByProductByMonthDto = {
+  months: Array<string>;
+  byProduct: Array<{}>;
+};
+
+type UserInvoiceRelsLastMonthTotalValue = {
+  total: number;
 };
 
 interface UserInvoiceRelsDataSourceI {
   // Retorna a quantidade de serviços utilizados e custo por mês.
-  getInvoicesByServiceByMonth(): Promise<AxiosResponse<UserInvoiceRelsInvoicesByServiceByMonthDto>>;
+  getInvoicesByProductByMonth(): Promise<AxiosResponse<UserInvoiceRelsInvoicesByProductByMonthDto>>;
+  // Retorna o valor faturado no último mês
+  getLastMonthTotalValue(): Promise<AxiosResponse<UserInvoiceRelsLastMonthTotalValue>>;
 }
 
 export class UserUsageRelsDataSource implements UserUsageRelsDataSourceI {
-  async getServicesUsedInTheMonth(): Promise<AxiosResponse<UserUsageRelsServicesUsedInTheMonthDto>> {
-    return await Apis.ApiRels.get(`${Endpoints.eRelsUserServicesUsedInTheMonth}`);
+  async getProductsUsedInTheMonth(): Promise<AxiosResponse<UserUsageRelsProductsUsedInTheMonthDto>> {
+    return await Apis.ApiRels.get(`${Endpoints.eRelsUserProductsUsedInTheMonth}`);
   }
 }
 
 export class UserInvoiceRelsDataSource implements UserInvoiceRelsDataSourceI {
-  async getInvoicesByServiceByMonth(): Promise<AxiosResponse<UserInvoiceRelsInvoicesByServiceByMonthDto>> {
-    return await Apis.ApiRels.get(`${Endpoints.eRelsUserInvoicesByServiceByMonth}`);
+  async getInvoicesByProductByMonth(): Promise<AxiosResponse<UserInvoiceRelsInvoicesByProductByMonthDto>> {
+    return await Apis.ApiRels.get(`${Endpoints.eRelsUserInvoicesByProductByMonth}`);
+  }
+
+  async getLastMonthTotalValue(): Promise<AxiosResponse<UserInvoiceRelsLastMonthTotalValue>> {
+    return await Apis.ApiRels.get(`${Endpoints.eRelsUserLastMonthTotalValue}`);
   }
 }

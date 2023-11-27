@@ -1,11 +1,11 @@
-export type ServicesUsedInTheMonthDto = {
-  productCosts: Array<{
+export type ProductsUsedInTheMonthDto = {
+  productCosts?: Array<{
     product_name: string;
     product_description: string;
     product_cost: number;
     ammout_use: number;
     total_cost: number;
   }>;
-  costTotal: number;
-  costForecast: number;
+  costTotal?: number;
+  costForecast?: number;
 };

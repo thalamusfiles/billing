@@ -29,35 +29,67 @@ export class InvoiceService {
   }
 
   /**
-   * Busca por vários registros
+   * Retorna a quantidade de serviços utilizados e custo por mês.
    * @param query
    * @returns
    */
-  async totalCostAndUsageByServiceByMonth(userUuid: string): Promise<any[]> {
+  async totalCostAndUsageByServiceByMonth(userUuid: string): Promise<Array<{ month: string; product_name: string; value: number }>> {
     this.logger.verbose('totalCostAndUsageByServiceByMonth');
 
-    const query = this.knex
-      .distinct(this.knex.raw('current_timestamp as base_start_date'))
-      .distinct(this.knex.raw("substring(name, 0, position('.' in name)) as product_name"))
-      .distinct(this.knex.raw('100 as value'))
-      .from('product');
+    const months = this.knex
+      .select(this.knex.raw(`cast(date_trunc('month', "period") as date) as month`))
+      .from(this.knex.raw(`generate_series(current_date - '6 months'::interval, current_date, '1 month'::interval) as "period"`));
 
-    return await query;
-
-    /*const query = this.knex
-      .select('inv.base_start_date')
+    const totals = this.knex
+      .select(this.knex.raw("cast(date_trunc('month', inv.base_start_date) as date) as month"))
       .select(this.knex.raw("substring(prod.name, 0, position('.' in prod.name)) as product_name"))
-      .sum('invcost.value')
+      .sum('invcost.value as value')
       //from
       .from(`${this.invTB} as inv`)
-      .leftJoin(`${this.invProdCostTB} as invcost`, `inv.uuid`, `invcost.invoice_uuid`)
-      .leftJoin(`${this.prodTB} as prod`, `prod.uuid`, `invcost.product_uuid`)
+      .innerJoin(`${this.invProdCostTB} as invcost`, `inv.uuid`, `invcost.invoice_uuid`)
+      .innerJoin(`${this.prodTB} as prod`, `prod.uuid`, `invcost.product_uuid`)
       //where
       .where('inv.drawee_uuid', userUuid || null)
-      .andWhere('inv.base_start_date', '>=', this.knex.raw("CURRENT_DATE - interval '7 months'"))
-      .groupBy('inv.base_start_date')
-      .groupBy('invcost.product_uuid')
-      .orderBy('inv.base_start_date');
-    return await query;*/
+      .andWhere('inv.base_start_date', '>=', this.knex.raw("CURRENT_DATE - '6 months'::interval"))
+      .groupBy('month')
+      .groupBy('product_name')
+      .orderBy('month');
+
+    const productNames = this.knex.distinct('product_name').from('totals');
+
+    const totalsLastMonths = this.knex
+      .with('months', months)
+      .with('totals', totals)
+      .with('productNames', productNames)
+      .select('months.month')
+      .select('productNames.product_name')
+      .select(this.knex.raw('COALESCE(totals.value, 0) as value'))
+      .from('months')
+      .crossJoin('productNames', '', '')
+      .leftJoin('totals', 'months.month', 'totals.month');
+    return await totalsLastMonths;
+  }
+
+  /**
+   * Retorna o valor faturado no último mês
+   * @param query
+   * @returns
+   */
+  async lastMonthTotalValue(userUuid: string): Promise<{ value: number }> {
+    this.logger.verbose('totalCostAndUsageByServiceByMonth');
+
+    const totals = this.knex
+      .sum('inv.value as value')
+      //from
+      .from(`${this.invTB} as inv`)
+      //where
+      .where('inv.drawee_uuid', userUuid || null)
+      .andWhere(
+        this.knex.raw(`cast(date_trunc('month', inv.base_start_date) as date)`),
+        '=',
+        this.knex.raw("date_trunc('month', CURRENT_DATE - '1 months'::interval)"),
+      );
+
+    return await totals.first();
   }
 }

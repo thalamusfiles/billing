@@ -10,10 +10,12 @@ export class AccountHomeCtrl {
 
   // Informações do usuário logado
   @observable me = null as any;
-  @observable servicesUsedInTheMonth = [] as any[];
+  @observable productsUsedInTheMonth = [] as any[];
   @observable costTotal?: number;
   @observable costForecast?: number;
-  @observable invoicesByServiceByMonth = [] as any[];
+  @observable invoicesbyProduct = [] as any[];
+  @observable invoicesbyProductMonths = [] as string[];
+  @observable lastInvoiceTotal?: number;
 
   // Indica que já foi disparado o init
   started = false;
@@ -24,8 +26,9 @@ export class AccountHomeCtrl {
       this.started = true;
 
       this.loadUsernInfo();
-      this.loadServicesUsedInTheMonth();
-      this.loadInvoicesByServiceByMonth();
+      this.loadProductsUsedInTheMonth();
+      this.loadInvoicesByProductByMonth();
+      this.loadLastMonthTotalValue();
     }
   };
 
@@ -38,22 +41,32 @@ export class AccountHomeCtrl {
   };
 
   @action
-  loadServicesUsedInTheMonth() {
-    new UserUsageRelsDataSource().getServicesUsedInTheMonth().then((response) => {
+  loadProductsUsedInTheMonth() {
+    new UserUsageRelsDataSource().getProductsUsedInTheMonth().then((response) => {
       const responseData = response.data;
 
-      this.servicesUsedInTheMonth = responseData.productCosts;
+      this.productsUsedInTheMonth = responseData.productCosts;
       this.costTotal = responseData.costTotal;
       this.costForecast = responseData.costForecast;
     });
   }
 
   @action
-  loadInvoicesByServiceByMonth() {
-    new UserInvoiceRelsDataSource().getInvoicesByServiceByMonth().then((response) => {
+  loadInvoicesByProductByMonth() {
+    new UserInvoiceRelsDataSource().getInvoicesByProductByMonth().then((response) => {
       const responseData = response.data;
 
-      this.invoicesByServiceByMonth = responseData.byService;
+      this.invoicesbyProduct = responseData.byProduct;
+      this.invoicesbyProductMonths = responseData.months;
+    });
+  }
+
+  @action
+  loadLastMonthTotalValue() {
+    new UserInvoiceRelsDataSource().getLastMonthTotalValue().then((response) => {
+      const responseData = response.data;
+console.log(responseData.total)
+      this.lastInvoiceTotal = responseData.total;
     });
   }
 }

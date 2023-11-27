@@ -13,9 +13,6 @@ const routes = (
     <Route path="/public/app/login" element={<LoginPage />} index />
     <Route path="/public/app/tokenload" element={<TokenLoad />} index />
 
-    <Route path="/account/*" element={<Account />} />
-    <Route path="/mgt/*" element={<Mgt />} />
-
     <Route path="/account/*" element={<PrivateRoutes element={<Account />} redirect={'public/app/login'} />} />
     <Route path="/mgt/*" element={<PrivateRoutes element={<Mgt />} redirect={'public/app/login'} />} />
 

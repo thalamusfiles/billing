@@ -8,11 +8,11 @@ import { ProductCostService } from './service/product-cost.service';
 import { InvoiceService } from './service/invoice.service.';
 import { UserInvoiceRelsController } from './controller/user-invoice-rels.controller';
 import { Invoice } from 'src/model/Invoice';
-import { User } from 'src/model/User';
+//import { User } from 'src/model/User';
 import { InvoiceProductCost } from 'src/model/InvoiceProductCost';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([Product, ProductCost, Invoice])],
+  imports: [MikroOrmModule.forFeature([/*User,*/ Product, ProductCost, Invoice, InvoiceProductCost])],
   providers: [
     //
     ProductService,

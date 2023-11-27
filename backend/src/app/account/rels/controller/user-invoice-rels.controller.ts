@@ -1,7 +1,8 @@
-import { Controller, Get, Request, Logger } from '@nestjs/common';
+import { Controller, Get, Request, Logger, UseGuards } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { RequestInfo } from 'src/commons/request-info';
 import { InvoiceService } from '../service/invoice.service.';
+import { IamGuard } from '../../auth/passaport/iam.guard';
 
 @Controller('rels/user')
 export class UserInvoiceRelsController {
@@ -17,13 +18,51 @@ export class UserInvoiceRelsController {
    * @returns
    */
   @ApiOperation({ tags: ['Rels'], summary: 'Retorna a quantidade de serviços utilizados e custo por mês' })
-  @Get('invoicesByServiceByMonth')
-  //@UseGuards(IamGuard)
-  async invoicesByServiceByMonth(@Request() request?: RequestInfo): Promise<any> {
-    this.logger.log('invoicesByService');
+  @Get('invoicesByProductByMonth')
+  @UseGuards(IamGuard)
+  async invoicesByProductByMonth(@Request() request?: RequestInfo): Promise<any> {
+    this.logger.log('invoicesByProduct');
 
-    const byService = await this.invoiceService.totalCostAndUsageByServiceByMonth(request?.user?.iss);
+    // Todos os registros
+    const all = await this.invoiceService.totalCostAndUsageByServiceByMonth(request.user.iss);
 
-    return { byService };
+    // Agrupado por produto.
+    const byProduct = all.reduce((prev, curr) => {
+      if (!prev[curr.product_name]) {
+        prev[curr.product_name] = [];
+      }
+      prev[curr.product_name].push(curr);
+      return prev;
+    }, {});
+
+    const months = [];
+    for (const key in byProduct) {
+      const first = byProduct[key];
+      for (const total of first) {
+        if (!months.includes(total.month)) {
+          months.push(total.month);
+        }
+      }
+      break;
+    }
+
+    return { all, months, byProduct };
+  }
+
+  /**
+   * Retorna o valor faturado no último mês
+   * @param body
+   * @returns
+   */
+  @ApiOperation({ tags: ['Rels'], summary: 'Retorna o valor faturado no último mês' })
+  @Get('lastMonthTotalValue')
+  @UseGuards(IamGuard)
+  async lastMonthTotalValue(@Request() request?: RequestInfo): Promise<any> {
+    this.logger.log('invoicesByProduct');
+
+    // Todos os registros
+    const total = await this.invoiceService.lastMonthTotalValue(request.user.iss);
+
+    return { total: total.value };
   }
 }

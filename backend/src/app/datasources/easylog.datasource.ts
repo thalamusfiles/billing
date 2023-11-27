@@ -39,7 +39,7 @@ interface RegisterApiDataSourceI {
 export class RegisterApiDataSource implements RegisterApiDataSourceI {
   async findUserActions(useruuid: string): Promise<AxiosResponse<Array<any>>> {
     // TODO filtrar por usuário
-    return await Api.apiEasyLog.get(easylogConfig.EASYLOGGER_PRODUCT_INDEX);
+    return await Api.apiEasyLog.get(easylogConfig.EASYLOGGER_PRODUCT_INDEX, { params: { uuid: useruuid } });
   }
 }
 

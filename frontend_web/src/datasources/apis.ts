@@ -15,9 +15,15 @@ class RegisterApisConfigure {
     return config;
   };
 
+  onResponseRejectInterceptors = (response: any) => {
+    console.log('response', response);
+    return response;
+  };
+
   axiosStart = (config: AxiosRequestConfig): AxiosInstance => {
     const api = axios.create(config);
     api.interceptors.request.use(this.requestInterceptors);
+    api.interceptors.response.use(null, this.onResponseRejectInterceptors);
     return api;
   };
 

@@ -61,7 +61,7 @@ const HomeSummary: React.FC = observer(() => {
       <Col md={3}>
         <TCardTile
           variant={ColorsDef.spentVariant}
-          title={<strong>{__('languages.BRL_', { value: 956.12 })}</strong>}
+          title={<strong>{__('languages.BRL_', { value: ctrl.lastInvoiceTotal })}</strong>}
           subtitle={__('account.home.spent_last_month')}
         />
       </Col>

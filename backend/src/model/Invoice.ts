@@ -3,7 +3,7 @@ import { BillingBaseEntity } from './Base/BillingBaseEntity';
 import { User } from './User';
 import { InvoiceProductCost } from './InvoiceProductCost';
 
-@Entity({ schema: 'public', readonly: true })
+@Entity({ schema: 'public' })
 export class Invoice extends BillingBaseEntity {
   @ManyToOne(() => User, { nullable: false })
   drawee?: User;

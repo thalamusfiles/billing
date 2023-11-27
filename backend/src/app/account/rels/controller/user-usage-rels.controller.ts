@@ -1,10 +1,11 @@
-import { Controller, Get, Request, Logger } from '@nestjs/common';
+import { Controller, Get, Request, Logger, UseGuards } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import RegisterApiDataSource from 'src/app/datasources/easylog.datasource';
 import { RequestInfo } from 'src/commons/request-info';
 import { ProductService } from '../service/product.service';
 import { ProductCostService } from '../service/product-cost.service';
-import { ServicesUsedInTheMonthDto } from './dtos/user-usage-rels.dto';
+import { ProductsUsedInTheMonthDto } from './dtos/user-usage-rels.dto';
+import { IamGuard } from '../../auth/passaport/iam.guard';
 
 @Controller('rels/user')
 export class UserUsageRelsController {
@@ -23,10 +24,10 @@ export class UserUsageRelsController {
    * @returns
    */
   @ApiOperation({ tags: ['Rels'], summary: 'Retorna a quantidade de serviços utilizados no mes atual' })
-  @Get('servicesUsedInTheMonth')
-  //@UseGuards(IamGuard)
-  async servicesUsedInTheMonth(@Request() request?: RequestInfo): Promise<ServicesUsedInTheMonthDto> {
-    this.logger.log('servicesUsedInTheMonth');
+  @Get('productsUsedInTheMonth')
+  @UseGuards(IamGuard)
+  async productsUsedInTheMonth(@Request() request?: RequestInfo): Promise<ProductsUsedInTheMonthDto> {
+    this.logger.log('productsUsedInTheMonth');
 
     // Coleta
     const response = await new RegisterApiDataSource().findUserActions(request?.user?.iss);

@@ -3,6 +3,7 @@ import { useAccountHomeStore } from './ctrl';
 import Card from 'react-bootstrap/Card';
 import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend } from 'chart.js';
 import { Line } from 'react-chartjs-2';
+import { DateTime } from 'luxon';
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
@@ -28,18 +29,13 @@ export const data = {
 export const SpentHistory: React.FC = observer(() => {
   const ctrl = useAccountHomeStore();
 
-  const groupByProduct = ctrl.invoicesByServiceByMonth.reduce((prev, curr) => {
-    if (!prev[curr.product_name]) {
-      prev[curr.product_name] = [];
-    }
-    prev[curr.product_name].push(curr);
-    return prev;
-  }, {});
+  const groupByProduct = Object.entries(ctrl.invoicesbyProduct);
 
-  data.datasets = Object.entries(groupByProduct).map(([key, serviceByMonths]) => {
+  data.labels = ctrl.invoicesbyProductMonths.map((date) => DateTime.fromFormat(date, 'yyyy-MM-dd').toFormat('dd/MM/yyyy'));
+  data.datasets = groupByProduct.map(([key, productByMonths]) => {
     return {
       label: key,
-      data: (serviceByMonths as any[]).map((month: any) => month.value as number),
+      data: (productByMonths as any[]).map((month: any) => month.value as number),
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     };

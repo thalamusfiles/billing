@@ -1,10 +1,10 @@
 import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
 import billingConfig from './billing.config';
+import { User } from '../model/User';
 import { Product } from '../model/Product';
 import { ProductCost } from '../model/ProductCost';
-import { User } from 'src/model/User';
-import { Invoice } from 'src/model/Invoice';
-import { InvoiceProductCost } from 'src/model/InvoiceProductCost';
+import { Invoice } from '../model/Invoice';
+import { InvoiceProductCost } from '../model/InvoiceProductCost';
 
 const defaultModelConfig = {
   host: 'localhost',

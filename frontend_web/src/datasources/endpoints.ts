@@ -10,8 +10,9 @@ class EndpointsConfigure {
   eAuthLogout = '/logout';
   // Rels
   eRels = null as string | null;
-  eRelsUserServicesUsedInTheMonth = '/user/servicesUsedInTheMonth'
-  eRelsUserInvoicesByServiceByMonth = '/user/invoicesByServiceByMonth'
+  eRelsUserProductsUsedInTheMonth = '/user/productsUsedInTheMonth'
+  eRelsUserInvoicesByProductByMonth = '/user/invoicesByProductByMonth'
+  eRelsUserLastMonthTotalValue = '/user/lastMonthTotalValue'
 
   configureEndpoint = (baseUrl: string = 'localhost', basePort: string = '3000') => {
     const baseEndpoint = basePort ? `${baseUrl}:${basePort}` : baseUrl;

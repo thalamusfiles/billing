@@ -21,7 +21,7 @@ const authConfig = {
   // Oauth callback
   CLIENT_CALLBACK: billingConfig.PRODCTION_MODE ? '/auth/iam/callback' : `http://localhost:${billingConfig.PORT}/auth/iam/callback`,
   CLIENT_ID: 'cea146ef-07a3-4df6-9b3d-e4b8c9629114',
-  CLIENT_SECRET: process.env.OAUTH_URL || defaultAuthConfig.CLIENT_SECRET,
+  CLIENT_SECRET: process.env.CLIENT_SECRET || defaultAuthConfig.CLIENT_SECRET,
 };
 
 export default authConfig;
