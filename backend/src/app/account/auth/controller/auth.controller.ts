@@ -3,6 +3,7 @@ import authConfig from '../../../../config/auth.config';
 import cookieConfig from '../../../../config/cookie.config';
 import billingConfig from '../../../../config/billing.config';
 import { IamGuard } from '../passaport/iam.guard';
+import { IdTokenInfo } from '../passaport/iam.info';
 
 @Controller('auth')
 export class AuthController {
@@ -54,7 +55,7 @@ export class AuthController {
    * @returns
    */
   @Get('token')
-  async token(@Request() req): Promise<any> {
+  async token(@Request() req): Promise<null | { idToken: string; userInfo: IdTokenInfo }> {
     this.logger.log('Get Token');
 
     const idToken = (req.session[cookieConfig.NAME] || {})[authConfig.TOKEN_HEADER_NAME];

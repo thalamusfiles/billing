@@ -1,5 +1,6 @@
-import axios, { AxiosInstance, AxiosRequestConfig } from 'axios';
+import axios, { AxiosError, AxiosInstance, AxiosRequestConfig, HttpStatusCode } from 'axios';
 import Endpoint from './endpoints';
+import { historyPush } from '../commons/route';
 
 class RegisterApisConfigure {
   token = '';
@@ -15,9 +16,11 @@ class RegisterApisConfigure {
     return config;
   };
 
-  onResponseRejectInterceptors = (response: any) => {
-    console.log('response', response);
-    return response;
+  onResponseRejectInterceptors = (error: AxiosError) => {
+    if (error.response?.status === HttpStatusCode.Unauthorized) {
+      historyPush('logout', { open: true, absolute: true });
+    }
+    return error;
   };
 
   axiosStart = (config: AxiosRequestConfig): AxiosInstance => {

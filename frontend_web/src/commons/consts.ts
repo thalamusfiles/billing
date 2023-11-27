@@ -49,7 +49,7 @@ export const IconsDef = {
 };
 
 //Constantes e identificadores de armazenamentos locais
-const lsKey = 'iam_v001';
+const lsKey = 'billing_v001';
 export const localStorageDef = {
   key: lsKey,
   // User

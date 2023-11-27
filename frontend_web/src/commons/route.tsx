@@ -68,7 +68,7 @@ export function historyPush(
 
   if (options?.open) {
     if (options.absolute) {
-      window.open(push);
+      window.location.href = push;
     } else {
       window.open(`${push}`);
     }
