@@ -11,6 +11,6 @@ interface AuthDataSourceI {
 
 export class AuthDataSource implements AuthDataSourceI {
   async getToken(): Promise<AxiosResponse<TokenDto>> {
-    return await Apis.ApiAuth.get(`${Endpoints.eAuthToken}`);
+    return await Apis.ApiAuth.get(Endpoints.eAuthToken);
   }
 }

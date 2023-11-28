@@ -4,7 +4,7 @@ const defaultConfig = {
 
 const cookieConfig = {
   NAME: 'billing',
-  PATH: '/auth',
+  PATH: '/',
   SECRET: process.env.BILLING_SESSION_SECRET || defaultConfig.BILLING_SESSION_SECRET,
   HTTP_ONLY: process.env.NODE_ENV === 'production',
   SAME_SITE: process.env.NODE_ENV === 'production' ? undefined : false,

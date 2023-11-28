@@ -37,16 +37,16 @@ interface UserInvoiceRelsDataSourceI {
 
 export class UserUsageRelsDataSource implements UserUsageRelsDataSourceI {
   async getProductsUsedInTheMonth(): Promise<AxiosResponse<UserUsageRelsProductsUsedInTheMonthDto>> {
-    return await Apis.ApiRels.get(`${Endpoints.eRelsUserProductsUsedInTheMonth}`);
+    return await Apis.ApiRels.get(Endpoints.eRelsUserProductsUsedInTheMonth);
   }
 }
 
 export class UserInvoiceRelsDataSource implements UserInvoiceRelsDataSourceI {
   async getInvoicesByProductByMonth(): Promise<AxiosResponse<UserInvoiceRelsInvoicesByProductByMonthDto>> {
-    return await Apis.ApiRels.get(`${Endpoints.eRelsUserInvoicesByProductByMonth}`);
+    return await Apis.ApiRels.get(Endpoints.eRelsUserInvoicesByProductByMonth);
   }
 
   async getLastMonthTotalValue(): Promise<AxiosResponse<UserInvoiceRelsLastMonthTotalValue>> {
-    return await Apis.ApiRels.get(`${Endpoints.eRelsUserLastMonthTotalValue}`);
+    return await Apis.ApiRels.get(Endpoints.eRelsUserLastMonthTotalValue);
   }
 }

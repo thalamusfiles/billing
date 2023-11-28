@@ -12,10 +12,6 @@ const authConfig = {
   TOKEN_HEADER_NAME: 'x-access-token',
   // URL de autenticação do sistema.
   OAUTH_URL: process.env.OAUTH_URL || defaultAuthConfig.OAUTH_URL,
-  // URL de autenticação do sistema.
-  OAUTH_AUTHORIZE: '/oauth2/authorize',
-  // URL de autenticação do sistema.
-  OAUTH_TOKEN: '/oauth2/token',
   // Oauth scope
   OAUTH_SCOPE: 'iam_all',
   // Oauth callback

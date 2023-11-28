@@ -45,9 +45,11 @@ export class AccountHomeCtrl {
     new UserUsageRelsDataSource().getProductsUsedInTheMonth().then((response) => {
       const responseData = response.data;
 
-      this.productsUsedInTheMonth = responseData.productCosts;
-      this.costTotal = responseData.costTotal;
-      this.costForecast = responseData.costForecast;
+      if (responseData) {
+        this.productsUsedInTheMonth = responseData.productCosts;
+        this.costTotal = responseData.costTotal;
+        this.costForecast = responseData.costForecast;
+      }
     });
   }
 
@@ -56,8 +58,10 @@ export class AccountHomeCtrl {
     new UserInvoiceRelsDataSource().getInvoicesByProductByMonth().then((response) => {
       const responseData = response.data;
 
-      this.invoicesbyProduct = responseData.byProduct;
-      this.invoicesbyProductMonths = responseData.months;
+      if (responseData) {
+        this.invoicesbyProduct = responseData.byProduct;
+        this.invoicesbyProductMonths = responseData.months;
+      }
     });
   }
 
@@ -65,8 +69,10 @@ export class AccountHomeCtrl {
   loadLastMonthTotalValue() {
     new UserInvoiceRelsDataSource().getLastMonthTotalValue().then((response) => {
       const responseData = response.data;
-console.log(responseData.total)
-      this.lastInvoiceTotal = responseData.total;
+
+      if (responseData) {
+        this.lastInvoiceTotal = responseData.total;
+      }
     });
   }
 }

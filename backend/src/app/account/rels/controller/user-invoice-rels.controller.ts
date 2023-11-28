@@ -2,8 +2,9 @@ import { Controller, Get, Request, Logger, UseGuards } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
 import { RequestInfo } from 'src/commons/request-info';
 import { InvoiceService } from '../service/invoice.service.';
-import { IamGuard } from '../../auth/passaport/iam.guard';
+import { AccessGuard } from '../../auth/passaport/access.guard';
 
+@UseGuards(AccessGuard)
 @Controller('rels/user')
 export class UserInvoiceRelsController {
   private readonly logger = new Logger(UserInvoiceRelsController.name);
@@ -19,12 +20,11 @@ export class UserInvoiceRelsController {
    */
   @ApiOperation({ tags: ['Rels'], summary: 'Retorna a quantidade de serviços utilizados e custo por mês' })
   @Get('invoicesByProductByMonth')
-  @UseGuards(IamGuard)
   async invoicesByProductByMonth(@Request() request?: RequestInfo): Promise<any> {
     this.logger.log('invoicesByProduct');
 
     // Todos os registros
-    const all = await this.invoiceService.totalCostAndUsageByServiceByMonth(request.user.iss);
+    const all = await this.invoiceService.totalCostAndUsageByServiceByMonth(request.user.sub);
 
     // Agrupado por produto.
     const byProduct = all.reduce((prev, curr) => {
@@ -56,12 +56,11 @@ export class UserInvoiceRelsController {
    */
   @ApiOperation({ tags: ['Rels'], summary: 'Retorna o valor faturado no último mês' })
   @Get('lastMonthTotalValue')
-  @UseGuards(IamGuard)
   async lastMonthTotalValue(@Request() request?: RequestInfo): Promise<any> {
     this.logger.log('invoicesByProduct');
 
     // Todos os registros
-    const total = await this.invoiceService.lastMonthTotalValue(request.user.iss);
+    const total = await this.invoiceService.lastMonthTotalValue(request.user.sub);
 
     return { total: total.value };
   }

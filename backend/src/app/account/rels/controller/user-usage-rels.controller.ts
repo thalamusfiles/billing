@@ -5,8 +5,9 @@ import { RequestInfo } from 'src/commons/request-info';
 import { ProductService } from '../service/product.service';
 import { ProductCostService } from '../service/product-cost.service';
 import { ProductsUsedInTheMonthDto } from './dtos/user-usage-rels.dto';
-import { IamGuard } from '../../auth/passaport/iam.guard';
+import { AccessGuard } from '../../auth/passaport/access.guard';
 
+@UseGuards(AccessGuard)
 @Controller('rels/user')
 export class UserUsageRelsController {
   private readonly logger = new Logger(UserUsageRelsController.name);
@@ -25,12 +26,11 @@ export class UserUsageRelsController {
    */
   @ApiOperation({ tags: ['Rels'], summary: 'Retorna a quantidade de serviços utilizados no mes atual' })
   @Get('productsUsedInTheMonth')
-  @UseGuards(IamGuard)
   async productsUsedInTheMonth(@Request() request?: RequestInfo): Promise<ProductsUsedInTheMonthDto> {
     this.logger.log('productsUsedInTheMonth');
 
     // Coleta
-    const response = await new RegisterApiDataSource().findUserActions(request?.user?.iss);
+    const response = await new RegisterApiDataSource().findUserActions(request.user.sub);
 
     const data = response.data || [];
     const totalsObj = data.reduce((totals, curr) => {

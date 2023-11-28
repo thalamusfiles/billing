@@ -5,6 +5,7 @@ import * as session from 'express-session';
 import cookieConfig from './config/cookie.config';
 import billingConfig from './config/billing.config';
 import { AppModule } from './app/app.module';
+import * as cookieParser from 'cookie-parser';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -16,6 +17,8 @@ async function bootstrap() {
 
   // Filtro de exceção do ORM
   app.useGlobalFilters(new NotFoundExceptionFilter());
+
+  app.use(cookieParser());
 
   // Sessão
   app.use(
