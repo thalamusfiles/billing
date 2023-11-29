@@ -8,7 +8,7 @@ export class Migration20230928000002_product_cost extends Migration {
         "created_at" timestamptz(0) not null, 
         "updated_at" timestamptz(0) not null, 
         "product_uuid" uuid not null, 
-        "created_by_uuid" uuid null
+        "created_by_uuid" uuid null,
         "cost" numeric(10,0) not null, 
         
         constraint "product_cost_pkey" primary key ("uuid"));`,
