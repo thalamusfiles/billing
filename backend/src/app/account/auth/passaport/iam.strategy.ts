@@ -8,7 +8,7 @@ import { IAMInfo } from './iam.info';
 export const buildIamOpenIdClient = async (): Promise<Client | null> => {
   const TrustIssuer = await Issuer.discover(authConfig.OAUTH_URL).catch(() => null);
   if (!TrustIssuer) {
-    Logger.warn('Comunicação com IAM não iniciada');
+    Logger.error('Comunicação com IAM não iniciada:' + authConfig.OAUTH_URL);
     return null;
   } else {
     Logger.log('IAM - Auth endpoint: ' + TrustIssuer.authorization_endpoint);
@@ -30,7 +30,7 @@ export class IamStrategy extends PassportStrategy(Strategy, 'iam') {
     super({
       client: client,
       params: {
-        redirect_uri: authConfig.CLIENT_CALLBACK,
+        redirect_uri: authConfig.OAUTH_CALLBACK,
         client_id: authConfig.CLIENT_ID,
         client_secret: authConfig.CLIENT_SECRET,
         response_type: 'code',

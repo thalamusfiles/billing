@@ -13,9 +13,10 @@ const authConfig = {
   // Oauth scope
   OAUTH_SCOPE: 'iam_all',
   // Oauth callback
-  CLIENT_CALLBACK: billingConfig.PRODCTION_MODE
+  OAUTH_CALLBACK: billingConfig.PRODCTION_MODE
     ? 'http://billing.thalamus.digital/auth/iam/callback'
     : `http://localhost:${billingConfig.PORT}/auth/iam/callback`,
+  // Identificação do Cliente
   CLIENT_ID: 'cea146ef-07a3-4df6-9b3d-e4b8c9629114',
   CLIENT_SECRET: process.env.CLIENT_SECRET || defaultAuthConfig.CLIENT_SECRET,
 };
