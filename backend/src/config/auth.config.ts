@@ -6,8 +6,6 @@ const defaultAuthConfig = {
 };
 
 const authConfig = {
-  // Definição de como enviar o ID Token para o frontend
-  SEND_TOKEN_BY: billingConfig.PRODCTION_MODE ? 'header' : 'session',
   //
   TOKEN_HEADER_NAME: 'x-access-token',
   // URL de autenticação do sistema.
