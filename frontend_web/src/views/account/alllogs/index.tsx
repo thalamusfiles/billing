@@ -1,6 +1,4 @@
-import { Button, Container, Form, Pagination, Table } from 'react-bootstrap';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
+import { Container, Pagination, Table } from 'react-bootstrap';
 import { AllLogsCtrl, AllLogsProvider, useAllLogsCtrlStore } from './ctrl';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
