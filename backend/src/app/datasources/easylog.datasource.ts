@@ -20,7 +20,6 @@ class EasyLogApiConfigure {
   };
 
   initApi = () => {
-    console.log(easylogConfig.EASYLOGGER_URLS);
     this.apiEasyLog = this.axiosStart({
       baseURL: easylogConfig.EASYLOGGER_URLS!,
       timeout: 115000,
@@ -37,7 +36,7 @@ interface EasyLogApiDataSourceI {
   findUserActions(useruuid: string, time?: string): Promise<AxiosResponse<Array<any>>>;
 }
 
-export class RegisterApiDataSource implements EasyLogApiDataSourceI {
+export class EasyLogApiDataSource implements EasyLogApiDataSourceI {
   async findUserActions(useruuid: string, time?: string): Promise<AxiosResponse<Array<any>>> {
     const body = { where: { data: { user: useruuid || '' } } } as Record<string, any>;
     if (time) {
@@ -47,4 +46,4 @@ export class RegisterApiDataSource implements EasyLogApiDataSourceI {
   }
 }
 
-export default RegisterApiDataSource;
+export default EasyLogApiDataSource;

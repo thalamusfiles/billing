@@ -34,7 +34,9 @@
       "spend_forecast": "Previsão de custo para o mês.",
       "spent_last_month": "Valor última fatura.",
       "billing.title": "Fatura",
-      "billing.subtitle": "Resumo da faturo por tipo de serviço utilizado."
+      "billing.subtitle": "Resumo da faturo por tipo de serviço utilizado.",
+      "showhistory": "Ver histórico de atividades.",
+      "showhistorydesc": "Registros dos últimos 3 meses."
     }
   },
   "application": {

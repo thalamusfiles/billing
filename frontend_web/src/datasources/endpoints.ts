@@ -11,6 +11,7 @@ class EndpointsConfigure {
   // Rels
   eRels = null as string | null;
   eRelsUserProductsUsedInTheMonth = '/user/productsUsedInTheMonth'
+  eRelsUserUserActions = '/user/userActions'
   eRelsUserInvoicesByProductByMonth = '/user/invoicesByProductByMonth'
   eRelsUserLastMonthTotalValue = '/user/lastMonthTotalValue'
 

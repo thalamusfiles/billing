@@ -10,7 +10,7 @@ export const ColorsDef = {
   // Sistemas
   applicationsVariant: 'danger',
   // Atividades
-  historyVariant: 'light',
+  historyVariant: '',
   // Account Home
   spentVariant: 'light',
   forecastVariant: 'danger',

@@ -1,10 +1,10 @@
 import { Controller, Get, Request, Logger, UseGuards } from '@nestjs/common';
 import { ApiOperation } from '@nestjs/swagger';
-import RegisterApiDataSource from 'src/app/datasources/easylog.datasource';
+import EasyLogApiDataSource from 'src/app/datasources/easylog.datasource';
 import { RequestInfo } from 'src/commons/request-info';
 import { ProductService } from '../service/product.service';
 import { ProductCostService } from '../service/product-cost.service';
-import { ProductsUsedInTheMonthDto } from './dtos/user-usage-rels.dto';
+import { ProductsUsedInTheMonthDto, UserAction } from './dtos/user-usage-rels.dto';
 import { AccessGuard } from '../../auth/passaport/access.guard';
 
 @UseGuards(AccessGuard)
@@ -30,9 +30,9 @@ export class UserUsageRelsController {
     this.logger.log('productsUsedInTheMonth');
 
     // Coleta
-    const startMonth = new Date();
-    startMonth.setFullYear(startMonth.getFullYear(), startMonth.getMonth(), 1);
-    const response = await new RegisterApiDataSource().findUserActions(request.user.sub, startMonth.toISOString());
+    const now = new Date();
+    const startMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
+    const response = await new EasyLogApiDataSource().findUserActions(request.user.sub, startMonth.toISOString());
 
     const data = response.data || [];
     const totalsObj = data.reduce((totals, curr) => {
@@ -67,5 +67,25 @@ export class UserUsageRelsController {
     const costForecast = this.productCostService.roundFinalCostValue(this.productCostService.calculateCostForecast(costTotal));
 
     return { productCosts, costTotal, costForecast };
+  }
+
+  /**
+   * Retorna a quantidade de serviços utilizados no mes atual.
+   * @param body
+   * @returns
+   */
+  @ApiOperation({ tags: ['Rels'], summary: 'Retorna o histórico de atividades do usuário' })
+  @Get('userActions')
+  async userActions(@Request() request?: RequestInfo): Promise<Array<UserAction>> {
+    this.logger.log('userActions');
+
+    // Coleta
+    const now = new Date();
+    const startMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
+    const response = await new EasyLogApiDataSource().findUserActions(request.user.sub, startMonth.toISOString());
+
+    const data = response.data || [];
+
+    return data.map((line) => line.data);
   }
 }

@@ -9,6 +9,7 @@ import TCardTile from '../../../components/Card/card-tile';
 import { ColorsDef } from '../../../commons/consts';
 import { SpentHistory } from './SpentHistory';
 import { BillingByService } from './BillingByService';
+import { historyPush } from '../../../commons/route';
 
 const HomeAccountPage: React.FC = () => {
   const ctrl = new AccountHomeCtrl();
@@ -63,6 +64,13 @@ const HomeSummary: React.FC = observer(() => {
           variant={ColorsDef.spentVariant}
           title={<strong>{__('languages.BRL_', { value: ctrl.lastInvoiceTotal })}</strong>}
           subtitle={__('account.home.spent_last_month')}
+        />
+      </Col>
+      <Col md={3}>
+        <TCardTile onClick={() => historyPush('actions')}
+          variant={ColorsDef.historyVariant}
+          title={<strong>{__('account.home.showhistory')}</strong>}
+          subtitle={__('account.home.showhistorydesc')}
         />
       </Col>
     </Row>

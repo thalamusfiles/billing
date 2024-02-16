@@ -26,8 +26,8 @@ export const BillingByService: React.FC = observer(() => {
           {ctrl.productsUsedInTheMonth.map((line: any) => (
             <tr key={line.product_name}>
               <td>{line.product_description}</td>
-              <td>{line.product_cost}</td>
               <td>{line.ammout_use}</td>
+              <td>{line.product_cost}</td>
               <td>{line.total_cost}</td>
             </tr>
           ))}

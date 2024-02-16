@@ -38,7 +38,10 @@ export class InvoiceService {
 
     const months = this.knex
       .select(this.knex.raw(`cast(date_trunc('month', "period") as date) as month`))
-      .from(this.knex.raw(`generate_series(current_date - '6 months'::interval, current_date, '1 month'::interval) as "period"`));
+      .from(this.knex.raw(`generate_series(
+        date_trunc('month',current_date) - '6 months'::interval, 
+        date_trunc('month',current_date) - '1 day'::interval , 
+        '1 month'::interval) as "period"`));
 
     const totals = this.knex
       .select(this.knex.raw("cast(date_trunc('month', inv.base_start_date) as date) as month"))

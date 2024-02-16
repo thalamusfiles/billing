@@ -6,7 +6,6 @@ import TokenLoad from './public/token-load';
 //Lazy Loading
 const LoginPage = React.lazy(() => import('./public/login'));
 const Account = React.lazy(() => import('./account'));
-const Mgt = React.lazy(() => import('./mgt'));
 
 const routes = (
   <>
@@ -14,7 +13,6 @@ const routes = (
     <Route path="/public/app/tokenload" element={<TokenLoad />} index />
 
     <Route path="/account/*" element={<PrivateRoutes element={<Account />} redirect={'public/app/login'} />} />
-    <Route path="/mgt/*" element={<PrivateRoutes element={<Mgt />} redirect={'public/app/login'} />} />
 
     <Route path="/" element={<Navigate to={'public/app/login'} replace />} />
   </>

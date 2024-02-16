@@ -1,6 +1,7 @@
 import { Navigate, Route, Routes } from 'react-router-dom';
 import { RouteDefinitions } from '../../commons/route';
 import HomeAccount from '../account/home';
+import AllLogsPage from './alllogs';
 
 /**
  * Definições das rotas.
@@ -9,6 +10,7 @@ import HomeAccount from '../account/home';
 export const routes: RouteDefinitions = {
   // Home
   home: { title: 'menu.home', path: '/home', component: HomeAccount },
+  actions: { title: 'menu.actions', path: '/actions', component: AllLogsPage },
 };
 
 /**

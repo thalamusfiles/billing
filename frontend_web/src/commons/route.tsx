@@ -28,17 +28,8 @@ export function getLinkTo(owner: RoutesName | string | number, options: { uuid: 
       push = '/account/home';
       break;
     // MGT
-    case 'home_mgt':
-      push = '/mgt/home';
-      break;
-    case 'application_list':
-      push = '/mgt/application/list';
-      break;
-    case 'application_edit':
-      push = '/mgt/application/edit/:uuid'.replace(':uuid', options.uuid);
-      break;
-    case 'application_new':
-      push = '/mgt/application/new';
+    case 'actions':
+      push = '/account/actions';
       break;
     default:
       push = owner as string;

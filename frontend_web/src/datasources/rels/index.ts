@@ -14,9 +14,13 @@ type UserUsageRelsProductsUsedInTheMonthDto = {
   costForecast: number;
 };
 
+export type UserAction = { product: string; params: Record<string, any> };
+
 interface UserUsageRelsDataSourceI {
   // Retorna a quantidade de serviços utilizados no mes atual.
   getProductsUsedInTheMonth(): Promise<AxiosResponse<UserUsageRelsProductsUsedInTheMonthDto>>;
+  // Retorna a quantidade de serviços utilizados no mes atual.
+  userActions(): Promise<AxiosResponse<Array<UserAction>>>;
 }
 
 type UserInvoiceRelsInvoicesByProductByMonthDto = {
@@ -38,6 +42,9 @@ interface UserInvoiceRelsDataSourceI {
 export class UserUsageRelsDataSource implements UserUsageRelsDataSourceI {
   async getProductsUsedInTheMonth(): Promise<AxiosResponse<UserUsageRelsProductsUsedInTheMonthDto>> {
     return await Apis.ApiRels.get(Endpoints.eRelsUserProductsUsedInTheMonth);
+  }
+  async userActions(): Promise<AxiosResponse<Array<UserAction>>> {
+    return await Apis.ApiRels.get(Endpoints.eRelsUserUserActions);
   }
 }
 
