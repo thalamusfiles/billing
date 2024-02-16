@@ -30,7 +30,9 @@ export class UserUsageRelsController {
     this.logger.log('productsUsedInTheMonth');
 
     // Coleta
-    const response = await new RegisterApiDataSource().findUserActions(request.user.sub);
+    const startMonth = new Date();
+    startMonth.setFullYear(startMonth.getFullYear(), startMonth.getMonth(), 1);
+    const response = await new RegisterApiDataSource().findUserActions(request.user.sub, startMonth.toISOString());
 
     const data = response.data || [];
     const totalsObj = data.reduce((totals, curr) => {
