@@ -20,6 +20,7 @@ class EasyLogApiConfigure {
   };
 
   initApi = () => {
+    console.log(easylogConfig.EASYLOGGER_URLS)
     this.apiEasyLog = this.axiosStart({
       baseURL: easylogConfig.EASYLOGGER_URLS!,
       timeout: 5000,
@@ -31,12 +32,12 @@ class EasyLogApiConfigure {
 const Api = new EasyLogApiConfigure();
 Api.initApi();
 
-interface RegisterApiDataSourceI {
+interface EasyLogApiDataSourceI {
   // Retorna a quantidade de serviços utilizados no mes atual.
   findUserActions(useruuid: string): Promise<AxiosResponse<Array<any>>>;
 }
 
-export class RegisterApiDataSource implements RegisterApiDataSourceI {
+export class RegisterApiDataSource implements EasyLogApiDataSourceI {
   async findUserActions(useruuid: string): Promise<AxiosResponse<Array<any>>> {
     // TODO filtrar por usuário
     const where = { data: { user: useruuid || '' } };

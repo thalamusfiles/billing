@@ -44,6 +44,7 @@ async function bootstrap() {
     });
   }
 
+  console.log('PORT:' + billingConfig.PORT);
   await app.listen(billingConfig.PORT);
 }
 bootstrap();
