@@ -2,6 +2,7 @@ import { Container, Pagination, Table } from 'react-bootstrap';
 import { AllLogsCtrl, AllLogsProvider, useAllLogsCtrlStore } from './ctrl';
 import { useEffect } from 'react';
 import { observer } from 'mobx-react-lite';
+import { DateTime } from 'luxon';
 
 const ctrl = new AllLogsCtrl();
 const AllLogsPage = () => {
@@ -37,7 +38,9 @@ const LogsTable = observer(() => {
       <Table responsive striped>
         <thead>
           <tr>
+            <th>Data</th>
             <th>Sistema / Atividade</th>
+            <th>Descrição do registro</th>
             <th>Parametros utilizado</th>
           </tr>
         </thead>
@@ -49,8 +52,10 @@ const LogsTable = observer(() => {
           )}
           {ctrl?.response?.map((log, idx) => (
             <tr key={idx}>
-              <td>{log.product}</td>
-              <td>{JSON.stringify(log.params)}</td>
+              <td>{DateTime.fromISO(log.time).toFormat('dd/MM/yyyy hh:mm:ss')}</td>
+              <td>{log.data.product}</td>
+              <td>{log.data.message}</td>
+              <td>{JSON.stringify(log.data.params)}</td>
             </tr>
           ))}
         </tbody>

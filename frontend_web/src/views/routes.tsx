@@ -12,9 +12,9 @@ const routes = (
     <Route path="/public/app/login" element={<LoginPage />} index />
     <Route path="/public/app/tokenload" element={<TokenLoad />} index />
 
-    <Route path="/account/*" element={<PrivateRoutes element={<Account />} redirect={'public/app/login'} />} />
+    <Route path="/account/*" element={<PrivateRoutes element={<Account />} redirect={'/public/app/login'} />} />
 
-    <Route path="/" element={<Navigate to={'public/app/login'} replace />} />
+    <Route path="/" element={<Navigate to={'/account'} replace />} />
   </>
 );
 

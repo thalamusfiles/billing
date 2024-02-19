@@ -84,8 +84,6 @@ export class UserUsageRelsController {
     const startMonth = new Date(now.getFullYear(), now.getMonth(), 1, 0, 0, 0, 0);
     const response = await new EasyLogApiDataSource().findUserActions(request.user.sub, startMonth.toISOString());
 
-    const data = response.data || [];
-
-    return data.map((line) => line.data);
+    return response.data;
   }
 }

@@ -14,7 +14,7 @@ type UserUsageRelsProductsUsedInTheMonthDto = {
   costForecast: number;
 };
 
-export type UserAction = { product: string; params: Record<string, any> };
+export type UserAction = { time: string; data: { product: string; message: string; params: Record<string, any> } };
 
 interface UserUsageRelsDataSourceI {
   // Retorna a quantidade de serviços utilizados no mes atual.

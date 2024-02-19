@@ -10,4 +10,4 @@ export type ProductsUsedInTheMonthDto = {
   costForecast?: number;
 };
 
-export type UserAction = { product: string; params: Record<string, any> };
+export type UserAction = { time: string; data: { product: string; params: Record<string, any> } };
